@@ -12,6 +12,7 @@
   "author": "priyanka_das_dipa",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.21.2",
     "http-status": "^2.1.0",
     "mongoose": "^8.9.5",

@@ -4,8 +4,6 @@ import { TBooking } from "./booking.interface";
 
 const bookingModelSchema = new Schema<TBooking>({
     email: { type: String, required: true },
-    paymentId: { type: String, required: true },
-    paymentTime: { type: Number, required: true },
     phone: { type: String, required: true },
     room: { type: String, required: true },
     slots: { type: String, required: true },
