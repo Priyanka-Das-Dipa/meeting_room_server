@@ -2,18 +2,23 @@ import { z } from "zod";
 
 const bookingValidationSchema = z.object({
   body: z.object({
-    room: z.string(),
-    slots: z.string(),
-    user: z.string(),
     email: z.string().email(),
-    phone: z.string(),
-    paymentTime: z.number(),
     paymentId: z.string(),
-    isConfirmed: z.enum(["confirmed", "unconfirmed", "canceled"]),
+    paymentTime: z.number(),
+    phone: z.string(),
+    room: z.array(
+      z.object({
+        _id: z.string(),
+        date: z.string(), 
+        slots: z.array(z.string()), 
+      })
+    ),
     totalAmount: z.number(),
+    user: z.string(),
+    isConfirmed: z.enum(["confirmed", "unconfirmed", "canceled"]),
   }),
 });
 
 export const bookingValidation = {
-    bookingValidationSchema,
-  };
+  bookingValidationSchema,
+};

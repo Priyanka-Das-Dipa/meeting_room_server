@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { bookingValidation } from "./booking.validation";
+import mongoose from "mongoose";
 
 export type TBooking = {
-  room: string;
-  slots: string;
-  user: string;
+  room: { _id: mongoose.Types.ObjectId; date: string; slots: mongoose.Types.ObjectId[] }[];
+  user: mongoose.Types.ObjectId;
   phone: string;
   paymentId: string;
   email: string;
