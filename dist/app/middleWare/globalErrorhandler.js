@@ -1,4 +1,6 @@
 "use strict";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unused-vars */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -10,8 +12,8 @@ const handleCastError_1 = __importDefault(require("../errors/handleCastError"));
 const handleDuplicateError_1 = __importDefault(require("../errors/handleDuplicateError"));
 const handleValidationError_1 = __importDefault(require("../errors/handleValidationError"));
 const handleZodError_1 = __importDefault(require("../errors/handleZodError"));
-const globalErrorhandler = (err, req, res, next) => {
-    console.log(err.statusCode);
+const mongoose_1 = require("mongoose");
+const globalErrorhandler = (err, req, res) => {
     let statusCode = err.statusCode ? err.statusCode : 500;
     let message = "Something went wrong";
     let errorMessages = [
@@ -42,9 +44,9 @@ const globalErrorhandler = (err, req, res, next) => {
         const simplifiedError = (0, handleDuplicateError_1.default)(err);
         statusCode = simplifiedError.statusCode;
         message = simplifiedError.message;
-        errorMessages = simplifiedError.erroSource;
+        errorMessages = simplifiedError.errorSource;
     }
-    else if (err instanceof Error) {
+    else if (err instanceof mongoose_1.Error) {
         message = err.message;
         errorMessages = [
             {

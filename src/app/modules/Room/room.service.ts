@@ -18,7 +18,7 @@ const getAllRooms = async (query: Record<string, unknown>) => {
     .paginate()
     .range()
     .capacity()
-    .roomsId();
+    // .roomsId();
   const result = await roomQuery.modelQuery;
   const meta = await roomQuery.countTotal();
   return { result, meta };

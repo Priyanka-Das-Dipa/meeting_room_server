@@ -87,6 +87,7 @@ class QueryBuilder {
         this.modelQuery = this.modelQuery.find().limit(limit);
         return this;
     }
+    // 
     //   Pagination
     paginate() {
         var _a, _b;

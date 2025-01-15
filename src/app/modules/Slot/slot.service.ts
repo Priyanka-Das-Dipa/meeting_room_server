@@ -28,22 +28,9 @@ const addASlot = async (payload: TSlot) => {
 };
 
 // old slot delete and create 5 slot each month 10 date automatically
-const getAllSlot = async (payload: any) => {
-  if (Object?.values(payload)?.length) {
-    const result = await Slot.find({
-      $or: [
-        { date: payload.date },
-        { room: payload.roomId },
-        { isBooked: payload.isBooked },
-      ],
-    })
-      .populate("room")
-      .sort(payload.sort);
-    return result;
-  } else {
-    const result = await Slot.find().populate("room").sort("room");
-    return result;
-  }
+const getAllSlot = async () => {
+  const result = await Slot.find().populate("room").sort("room");
+  return result;
 };
 
 // delete slot

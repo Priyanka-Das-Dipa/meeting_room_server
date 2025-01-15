@@ -1,10 +1,10 @@
+import status from "http-status";
 import AppError from "../../errors/AppError";
+import { TBooking } from "./booking.interface";
 import { Bookings } from "./booking.model";
-import { bookingValidation } from "./booking.validation";
-import { httpStatus } from "http-status";
 
-const addRoomBooking = async () => {
-  const result = await bookingValidation.create();
+const addRoomBooking = async (payload : TBooking ) => {
+  const result = await Bookings.create(payload  );
   return result;
 };
 
@@ -32,7 +32,7 @@ const getSingleBooking = async (payload: string) => {
 const deleteBooking = async (id: string) => {
   const isExist = await Bookings.findById(id);
   if (!isExist) {
-    throw new AppError(httpStatus.NOT_FOUND, "No Booking Found!");
+    throw new AppError(status.NOT_FOUND, "No Booking Found!");
   }
   const result = await Bookings.findByIdAndUpdate(
     id,

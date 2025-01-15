@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.slotController = void 0;
+const http_status_1 = __importDefault(require("http-status"));
 const catchAsynch_1 = __importDefault(require("../../utils/catchAsynch"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const slot_service_1 = require("./slot.service");
-const http_status_1 = __importDefault(require("http-status"));
 const addSlot = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield slot_service_1.slotService.addASlot(req.body);
     (0, sendResponse_1.default)(res, {
@@ -27,7 +27,7 @@ const addSlot = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, void 
     });
 }));
 const getAllSlot = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield slot_service_1.slotService.getAllSlot(req.query);
+    const result = yield slot_service_1.slotService.getAllSlot();
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
@@ -41,7 +41,7 @@ const deleteSlot = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, vo
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: "Slot Deleted Successfull",
+        message: "Slot Deleted Successful",
         data: result,
     });
 }));

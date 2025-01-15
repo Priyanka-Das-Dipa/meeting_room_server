@@ -28,24 +28,9 @@ const addASlot = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     return yield (0, slot_utils_1.createSlots)(payload.room, payload.date, createSlotTime);
 });
 // old slot delete and create 5 slot each month 10 date automatically
-const getAllSlot = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    if ((_a = Object === null || Object === void 0 ? void 0 : Object.values(payload)) === null || _a === void 0 ? void 0 : _a.length) {
-        const result = yield slot_modal_1.Slot.find({
-            $or: [
-                { date: payload.date },
-                { room: payload.roomId },
-                { isBooked: payload.isBooked },
-            ],
-        })
-            .populate("room")
-            .sort(payload.sort);
-        return result;
-    }
-    else {
-        const result = yield slot_modal_1.Slot.find().populate("room").sort("room");
-        return result;
-    }
+const getAllSlot = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield slot_modal_1.Slot.find().populate("room").sort("room");
+    return result;
 });
 // delete slot
 const deleteASlot = (payload) => __awaiter(void 0, void 0, void 0, function* () {

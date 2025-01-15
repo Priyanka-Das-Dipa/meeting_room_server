@@ -29,8 +29,8 @@ const getAllRooms = (query) => __awaiter(void 0, void 0, void 0, function* () {
         .limit()
         .paginate()
         .range()
-        .capacity()
-        .roomsId();
+        .capacity();
+    // .roomsId();
     const result = yield roomQuery.modelQuery;
     const meta = yield roomQuery.countTotal();
     return { result, meta };

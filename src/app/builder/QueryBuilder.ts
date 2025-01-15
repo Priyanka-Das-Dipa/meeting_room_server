@@ -91,6 +91,8 @@ class QueryBuilder<T> {
     return this;
   }
 
+  // 
+
   //   Pagination
   paginate() {
     const page = Number(this?.query?.page) || 1;

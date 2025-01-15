@@ -13,12 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.bookingService = void 0;
+const http_status_1 = __importDefault(require("http-status"));
 const AppError_1 = __importDefault(require("../../errors/AppError"));
 const booking_model_1 = require("./booking.model");
-const booking_validation_1 = require("./booking.validation");
-const http_status_1 = require("http-status");
-const addRoomBooking = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield booking_validation_1.bookingValidation.create();
+const addRoomBooking = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_model_1.Bookings.create(payload);
     return result;
 });
 const getAllBookings = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -42,7 +41,7 @@ const getSingleBooking = (payload) => __awaiter(void 0, void 0, void 0, function
 const deleteBooking = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const isExist = yield booking_model_1.Bookings.findById(id);
     if (!isExist) {
-        throw new AppError_1.default(http_status_1.httpStatus.NOT_FOUND, "No Booking Found!");
+        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "No Booking Found!");
     }
     const result = yield booking_model_1.Bookings.findByIdAndUpdate(id, { isDeleted: true }, { new: true, runValidators: true });
     return result;
