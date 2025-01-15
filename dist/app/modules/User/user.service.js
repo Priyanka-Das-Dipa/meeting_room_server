@@ -8,29 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userServices = void 0;
+const QueryBuilder_1 = __importDefault(require("../../builder/QueryBuilder"));
 const user_model_1 = require("./user.model");
 // get all the user form the database
 const getAllUsers = (query) => __awaiter(void 0, void 0, void 0, function* () {
-    const { role, name, sortBy, sortOrder } = query;
-    let userQuery = user_model_1.User.find({ isDeleted: false });
-    // Search by role and name
-    if (role) {
-        userQuery = userQuery.where("role").equals(role);
-    }
-    if (name) {
-        userQuery = userQuery.where("name").regex(new RegExp(name, "i")); // Case-insensitive search
-    }
-    // Sort
-    if (sortBy && sortOrder) {
-        const sortDirection = sortOrder === "desc" ? -1 : 1;
-        userQuery = userQuery.sort({ [sortBy]: sortDirection });
-    }
-    const result = yield userQuery;
+    const userQuery = new QueryBuilder_1.default(user_model_1.User.find({ isDeleted: false }), query).search(["role", "name"]).filter().sort();
+    const result = yield userQuery.modelQuery;
     return result;
 });
-// Delete the user from the database
+// Delete the user from database
 const deleteUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return yield user_model_1.User.findByIdAndUpdate(id, { isDeleted: true });
 });

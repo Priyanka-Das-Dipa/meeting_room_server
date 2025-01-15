@@ -17,6 +17,7 @@ const catchAsynch_1 = __importDefault(require("../../utils/catchAsynch"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const user_service_1 = require("./user.service");
 const http_status_1 = __importDefault(require("http-status"));
+// get all users from the database
 const getAllUsers = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_service_1.userServices.getAllUsers(req.query);
     res.status(http_status_1.default.OK).json({
@@ -26,8 +27,10 @@ const getAllUsers = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, v
         data: result,
     });
 }));
+// delete a user from the database 
 const deleteUser = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield user_service_1.userServices.deleteUser(req.params.id);
+    var _a;
+    const result = yield user_service_1.userServices.deleteUser((_a = req === null || req === void 0 ? void 0 : req.params) === null || _a === void 0 ? void 0 : _a.id);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,

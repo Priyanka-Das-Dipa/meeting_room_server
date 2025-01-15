@@ -8,4 +8,5 @@ dotenv_1.default.config();
 exports.default = {
     port: process.env.PORT,
     db_url: process.env.DB_URL,
+    bcrypt_saltround: process.env.BCRYPT_SALTROUND
 };

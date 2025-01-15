@@ -4,10 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:prod": "node ./dist/server.js",
     "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "start": "node dist/server.js",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint src --fix"
   },
   "author": "priyanka_das_dipa",
   "license": "ISC",
@@ -20,6 +23,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
+    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.7",
