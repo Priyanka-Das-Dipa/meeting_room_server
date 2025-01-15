@@ -13,6 +13,17 @@ const createRoomsValidationSchema = zod_1.z.object({
         roomImg: zod_1.z.array(zod_1.z.string()),
     }),
 });
+const updateRoomsValidationSchema = zod_1.z.object({
+    body: zod_1.z.object({
+        name: zod_1.z.string().optional(),
+        roomNo: zod_1.z.number().optional(),
+        floorNo: zod_1.z.number().optional(),
+        capacity: zod_1.z.number().optional(),
+        pricePerSlot: zod_1.z.number().optional(),
+        amenities: zod_1.z.array(zod_1.z.string()).optional(),
+        roomImg: zod_1.z.array(zod_1.z.string()).optional(),
+    }),
+});
 exports.roomValidation = {
-    createRoomsValidationSchema,
+    createRoomsValidationSchema, updateRoomsValidationSchema
 };

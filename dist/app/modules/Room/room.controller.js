@@ -29,7 +29,7 @@ const createRoom = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, vo
 }));
 // get all room from Database
 const getAllRoom = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield room_service_1.roomsServices.getAllRoom(req.query);
+    const result = yield room_service_1.roomsServices.getAllRooms(req.query);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
@@ -47,6 +47,15 @@ const getASingleRoom = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0
         data: result,
     });
 }));
+const updateARoom = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield room_service_1.roomsServices.updateRooms(req.params.id, req.body);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Room updated successfully",
+        data: result,
+    });
+}));
 // Delete a Room from the Database
 const deleteARoom = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield room_service_1.roomsServices.deleteARoom(req.params.id);
@@ -61,5 +70,6 @@ exports.roomController = {
     createRoom,
     getAllRoom,
     getASingleRoom,
+    updateARoom,
     deleteARoom
 };

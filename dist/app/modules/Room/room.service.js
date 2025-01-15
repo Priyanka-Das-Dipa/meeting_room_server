@@ -8,22 +8,42 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.roomsServices = void 0;
+const QueryBuilder_1 = __importDefault(require("../../builder/QueryBuilder"));
 const room_model_1 = require("./room.model");
+const searchAbleField_1 = require("./searchAbleField");
 const createRoom = (payLoad) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield room_model_1.Rooms.create(payLoad);
     return result;
 });
-// const getAllRoom = async (query: Record<string, unknown>) => {
-//     // const result = await Rooms.find();
-//     const roomquery = new Query(Rooms.find({ isDeleted: false }), query)
-//     const result = await roomquery.modelQuery;
-//     const meta = await roomquery.countTotal();
-//     return result;
-//   };
+const getAllRooms = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    // const result = await Rooms.find();
+    const roomQuery = new QueryBuilder_1.default(room_model_1.Rooms.find({ isDeleted: false }), query)
+        .search(searchAbleField_1.searchAbleField)
+        .filter()
+        .sort()
+        .limit()
+        .paginate()
+        .range()
+        .capacity()
+        .roomsId();
+    const result = yield roomQuery.modelQuery;
+    const meta = yield roomQuery.countTotal();
+    return { result, meta };
+});
 const getASingleRoom = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield room_model_1.Rooms.findById(id);
+    return result;
+});
+const updateRooms = (id, payLoad) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield room_model_1.Rooms.findByIdAndUpdate(id, payLoad, {
+        new: true,
+        runValidators: true,
+    });
     return result;
 });
 const deleteARoom = (payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -32,6 +52,8 @@ const deleteARoom = (payload) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.roomsServices = {
     createRoom,
+    getAllRooms,
     getASingleRoom,
+    updateRooms,
     deleteARoom,
 };
