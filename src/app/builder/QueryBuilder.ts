@@ -8,7 +8,6 @@ class QueryBuilder<T> {
     this.modelQuery = modelQuery;
     this.query = query;
   }
-  
 
   // search function
   search(searchableFields: string[]) {
@@ -84,8 +83,8 @@ class QueryBuilder<T> {
 
     return this;
   }
-  //  Limit
 
+  //  Limit
   limit() {
     const limit = Number(this?.query?.limit || 6);
     this.modelQuery = this.modelQuery.find().limit(limit as number);
@@ -116,13 +115,13 @@ class QueryBuilder<T> {
       totalPage,
     };
   }
-  //   fields() {
-  //     const fields =
-  //       (this?.query?.fields as string)?.split(",")?.join(" ") || "-__v";
+  fields() {
+    const fields =
+      (this?.query?.fields as string)?.split(",")?.join(" ") || "-__v";
 
-  //     this.modelQuery = this.modelQuery.select(fields);
-  //     return this;
-  //   }
+    this.modelQuery = this.modelQuery.select(fields);
+    return this;
+  }
 }
 
 export default QueryBuilder;

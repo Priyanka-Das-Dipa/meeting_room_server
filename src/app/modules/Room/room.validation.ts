@@ -11,6 +11,18 @@ const createRoomsValidationSchema = z.object({
     roomImg: z.array(z.string()),
   }),
 });
+
+const updateRoomsValidationSchema = z.object({
+  body: z.object({
+    name: z.string().optional(),
+    roomNo: z.number().optional(),
+    floorNo: z.number().optional(),
+    capacity: z.number().optional(),
+    pricePerSlot: z.number().optional(),
+    amenities: z.array(z.string()).optional(),
+    roomImg: z.array(z.string()).optional(),
+  }),
+});
 export const roomValidation = {
-  createRoomsValidationSchema,
+  createRoomsValidationSchema, updateRoomsValidationSchema
 };
