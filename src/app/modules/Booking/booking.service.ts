@@ -9,6 +9,7 @@ import config from "../../config";
 
 const stripe = new Stripe(config.stripe_secret_key as any);
 const addRoomBooking = async (payload: TBooking) => {
+  // console.log("this is from payment", payload);
   const result = await Bookings.create(payload);
   return result;
 };
@@ -48,7 +49,7 @@ const deleteBooking = async (id: string) => {
 };
 
 const confirmBooking = async (id: string, payload: { status: string }) => {
-  console.log(payload);
+  // console.log(payload);
   const result = await Bookings.findByIdAndUpdate(
     id,
     { isConfirmed: payload.status },
@@ -61,13 +62,14 @@ const confiremPayment = async (payload: {
   paymentId: string;
   total: number;
 }) => {
+  // console.log("this ", payload);
   const { paymentId, total } = payload;
   const paymentIntent = await stripe.paymentIntents.create({
     amount: total * 100,
     currency: "usd",
     payment_method: paymentId,
     confirm: true,
-    // return_url: `${config.CLIENT_SITE_URL}/success`,
+    return_url: "http://localhost:5173/",
   });
   return paymentIntent;
 };

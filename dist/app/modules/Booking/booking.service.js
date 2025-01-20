@@ -21,6 +21,7 @@ const stripe_1 = __importDefault(require("stripe"));
 const config_1 = __importDefault(require("../../config"));
 const stripe = new stripe_1.default(config_1.default.stripe_secret_key);
 const addRoomBooking = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    // console.log("this is from payment", payload);
     const result = yield booking_model_1.Bookings.create(payload);
     return result;
 });
@@ -51,18 +52,19 @@ const deleteBooking = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const confirmBooking = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(payload);
+    // console.log(payload);
     const result = yield booking_model_1.Bookings.findByIdAndUpdate(id, { isConfirmed: payload.status }, { new: true, runValidators: true });
     return result;
 });
 const confiremPayment = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    // console.log("this ", payload);
     const { paymentId, total } = payload;
     const paymentIntent = yield stripe.paymentIntents.create({
         amount: total * 100,
         currency: "usd",
         payment_method: paymentId,
         confirm: true,
-        // return_url: `${config.CLIENT_SITE_URL}/success`,
+        return_url: "http://localhost:5173/",
     });
     return paymentIntent;
 });
