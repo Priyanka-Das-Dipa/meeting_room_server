@@ -57,7 +57,7 @@ const globalErrorhandler: ErrorRequestHandler = (
   }
 
   if (err instanceof AppError) {
-    return res.status(statusCode).json({
+    return (statusCode).json({
       success: false,
       statusCode: statusCode,
       message,

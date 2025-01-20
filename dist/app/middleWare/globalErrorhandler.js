@@ -56,7 +56,7 @@ const globalErrorhandler = (err, req, res) => {
         ];
     }
     if (err instanceof AppError_1.default) {
-        return res.status(statusCode).json({
+        return (statusCode).json({
             success: false,
             statusCode: statusCode,
             message,
