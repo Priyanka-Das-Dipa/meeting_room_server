@@ -10,11 +10,12 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://meeting-room-client-beta.vercel.app/",
+      "https://meeting-room-client-beta.vercel.app",
     ],
     credentials: true,
   })
 );
+// app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 
 app.use("/api", router);
