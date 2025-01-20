@@ -12,4 +12,7 @@ router.get("/my-bookings", bookingController.getSingleBooking);
 
 router.delete("/bookings/:id", bookingController.deleteBooking);
 
+router.put("/confirm-booking/:id",  bookingController.conFirmBookingByAdmin);
+router.post("/confirm-payment", bookingController.confirmPayment);
+
 export const bookingsRouter = router;

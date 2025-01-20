@@ -55,9 +55,29 @@ const deleteBooking = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0,
         data: result,
     });
 }));
+const confirmPayment = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const reslut = yield booking_service_1.bookingService.confiremPayment(req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "You payment has successfully received",
+        data: reslut,
+    });
+}));
+const conFirmBookingByAdmin = (0, catchAsynch_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_service_1.bookingService.confirmBooking(req.params.id, req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Booking Confirm Successfully",
+        data: result,
+    });
+}));
 exports.bookingController = {
     addBooking,
     getAllBooking,
     getSingleBooking,
     deleteBooking,
+    confirmPayment,
+    conFirmBookingByAdmin,
 };

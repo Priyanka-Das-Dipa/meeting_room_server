@@ -1,10 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import status from "http-status";
 import AppError from "../../errors/AppError";
 import { TBooking } from "./booking.interface";
 import { Bookings } from "./booking.model";
 
-const addRoomBooking = async (payload : TBooking ) => {
-  const result = await Bookings.create(payload  );
+import Stripe from "stripe";
+import config from "../../config";
+
+const stripe = new Stripe(config.stripe_secret_key as any);
+const addRoomBooking = async (payload: TBooking) => {
+  const result = await Bookings.create(payload);
   return result;
 };
 
@@ -42,9 +47,36 @@ const deleteBooking = async (id: string) => {
   return result;
 };
 
+const confirmBooking = async (id: string, payload: { status: string }) => {
+  console.log(payload);
+  const result = await Bookings.findByIdAndUpdate(
+    id,
+    { isConfirmed: payload.status },
+    { new: true, runValidators: true }
+  );
+  return result;
+};
+
+const confiremPayment = async (payload: {
+  paymentId: string;
+  total: number;
+}) => {
+  const { paymentId, total } = payload;
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: total * 100,
+    currency: "usd",
+    payment_method: paymentId,
+    confirm: true,
+    // return_url: `${config.CLIENT_SITE_URL}/success`,
+  });
+  return paymentIntent;
+};
+
 export const bookingService = {
   addRoomBooking,
   getAllBookings,
   getSingleBooking,
   deleteBooking,
+  confirmBooking,
+  confiremPayment,
 };

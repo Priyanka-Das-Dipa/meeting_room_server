@@ -13,4 +13,6 @@ router.post("/bookings", (0, validationRequest_1.default)(booking_validation_1.b
 router.get("/bookings", booking_controller_1.bookingController.getAllBooking);
 router.get("/my-bookings", booking_controller_1.bookingController.getSingleBooking);
 router.delete("/bookings/:id", booking_controller_1.bookingController.deleteBooking);
+router.put("/confirm-booking/:id", booking_controller_1.bookingController.conFirmBookingByAdmin);
+router.post("/confirm-payment", booking_controller_1.bookingController.confirmPayment);
 exports.bookingsRouter = router;
